@@ -1,0 +1,15 @@
+---
+- name: deploy lamp stack
+  hosts: Slave
+  become: yes
+  tasks:
+    - name: Execute script on slave node
+      script: master.sh
+     
+    - name: Create Cron job 
+      cron:
+	name: "Check server uptime"
+	minute: 0
+	hour: 0
+	job: "/usr/bin/uptime > /var/log/server_uptime.log"
+     
